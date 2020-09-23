@@ -41,8 +41,6 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
     //Retrofit and GSON
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
@@ -70,10 +68,19 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.0-alpha06"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.0-alpha06"
 
-    implementation 'com.xwray:groupie:2.3.0'
-    implementation 'com.xwray:groupie-kotlin-android-extensions:2.3.0'
-    implementation 'com.xwray:groupie-databinding:2.3.0'
+    def mock_version = "1.9.2"
+    testImplementation "io.mockk:mockk:$mock_version"
+    androidTestImplementation "io.mockk:mockk-android:$mock_version"
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:4.1.0"
+    testImplementation "com.squareup.okhttp3:mockwebserver:4.1.0"
 
-    implementation "androidx.preference:preference-ktx:1.1.1"
+    def espresso_version = "3.1.1"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
+
+    def support_test_version = "1.1.0"
+    androidTestImplementation "androidx.test:runner:$support_test_version"
+    androidTestImplementation "androidx.test:rules:$support_test_version"
+
 
 }

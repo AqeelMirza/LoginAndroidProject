@@ -3,14 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="viewmodel"
-            type="com.mirza.nowmoneytest.ui.login.LoginViewModel" />
-
-
-    </data>
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
@@ -68,7 +60,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="12dp"
                     android:drawablePadding="16dp"
-                    android:text="@={viewmodel.username}"
                     android:hint="abcdef@email.com"
                     android:inputType="textEmailAddress"
                     android:padding="12dp" />
@@ -80,7 +71,6 @@
                     android:layout_marginBottom="12dp"
                     android:drawablePadding="16dp"
                     android:hint="password"
-                    android:text="@={viewmodel.password}"
                     android:inputType="textPassword"
                     android:padding="12dp" />
 
@@ -88,7 +78,6 @@
                 <Button
                     android:id="@+id/button_sign_in"
                     android:layout_width="150dp"
-                    android:onClick="@{viewmodel::onLoginButtonClick}"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:background="@color/colorAccent"
