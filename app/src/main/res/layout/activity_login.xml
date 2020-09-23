@@ -88,7 +88,7 @@
                 <Button
                     android:id="@+id/button_sign_in"
                     android:layout_width="150dp"
-                    android:onClick="@{viewmodel.onLoginButtonClick}"
+                    android:onClick="@{viewmodel::onLoginButtonClick}"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:background="@color/colorAccent"
