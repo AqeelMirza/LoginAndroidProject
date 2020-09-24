@@ -12,4 +12,6 @@
     <string name="success">success</string>
     <string name="failure">failed</string>
     <string name="please_enter_values">please enter values</string>
+    <string name="auth">auth</string>
+    <string name="no_receivers_found_please_add_using_the_add_button">No Receivers found, please add using the \'Add\' button</string>
 </resources>

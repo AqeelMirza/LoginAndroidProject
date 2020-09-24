@@ -7,9 +7,8 @@
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F4F4F4"
+        android:background="@color/grey"
         tools:context=".ui.auth.LoginActivity">
-
 
         <RelativeLayout
             android:layout_width="match_parent"

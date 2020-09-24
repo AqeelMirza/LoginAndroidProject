@@ -1,5 +1,6 @@
 package com.mirza.nowmoneytest.ui.login
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.mirza.nowmoneytest.R
 import com.mirza.nowmoneytest.databinding.ActivityLoginBinding
+import com.mirza.nowmoneytest.ui.receivers.ReceiverActivity
 import com.mirza.nowmoneytest.util.*
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.launch
@@ -54,8 +56,8 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
                     val loginResp = viewModel.userLogin(username, password)
                     if (loginResp.token != null) {
                         progress_bar.hide()
-                        // toast(buildToastMessage(loginResp.token))
                         toast(buildToastMessage(getString(R.string.success)))
+                        navigateToReceiverActivity(loginResp.token)
                     }
                 } catch (e: ApiException) {
                     progress_bar.hide()
@@ -68,5 +70,12 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
                 }
             }
         }
+    }
+
+    fun navigateToReceiverActivity(auth: String) {
+        val intent = Intent(this, ReceiverActivity::class.java).apply {
+            putExtra(getString(R.string.auth), auth)
+        }
+        startActivity(intent)
     }
 }
