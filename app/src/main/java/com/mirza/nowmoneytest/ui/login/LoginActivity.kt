@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
         val username = binding.editTextUsername.text.toString().trim()
         val password = binding.editTextPassword.text.toString().trim()
 
-        if (username.isNullOrEmpty() || password.isNullOrEmpty()) {
+        if (username.isEmpty() || password.isEmpty()) {
             toast(buildToastMessage(getString(R.string.please_enter_values)))
         } else {
             progress_bar.show()

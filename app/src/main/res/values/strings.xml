@@ -11,7 +11,8 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="success">success</string>
     <string name="failure">failed</string>
-    <string name="please_enter_values">please enter values</string>
+    <string name="please_enter_values">please check and enter correct values</string>
     <string name="auth">auth</string>
-    <string name="no_receivers_found_please_add_using_the_add_button">No Receivers found, please add using the \'Add\' button</string>
+    <string name="no_receivers_found_please_add_using_the_add_button">No Contacts found, please add using the \'Add\' button</string>
+    <string name="sign_in">Sign In</string>
 </resources>

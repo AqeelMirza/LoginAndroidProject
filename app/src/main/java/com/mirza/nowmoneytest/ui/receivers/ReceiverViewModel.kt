@@ -10,6 +10,15 @@ class ReceiverViewModel(
 ) : ViewModel() {
 
     suspend fun getReceiver(
-        auth: String) = withContext(Dispatchers.IO) { repo.getReceiver(auth) }
+        auth: String
+    ) = withContext(Dispatchers.IO) { repo.getReceiver(auth) }
+
+    suspend fun addReceiver(
+        auth: String, name: String, number: String, address: String
+    ) = withContext(Dispatchers.IO) { repo.addReceiver(auth, name, number, address) }
+
+    suspend fun deleteReceiver(
+        auth: String, _id: String
+    ) = withContext(Dispatchers.IO) { repo.deleteReceiver(auth, _id) }
 
 }

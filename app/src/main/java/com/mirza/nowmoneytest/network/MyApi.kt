@@ -1,7 +1,9 @@
 package com.mirza.nowmoneytest.network
 
+import com.mirza.nowmoneytest.db.entities.Receiver
 import com.mirza.nowmoneytest.network.responses.LoginResponse
 import com.mirza.nowmoneytest.network.responses.ReceiverResponse
+import com.mirza.nowmoneytest.network.responses.UpdateReceiverResponse
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Response
@@ -19,16 +21,25 @@ interface MyApi {
         @Field("password") password: String
     ): Response<LoginResponse>
 
-    /*  @GET("api/Profiles/GetProfile?id={id}")
-      fun getUser(
-          @Path("id") id: String?,
-          @Header("auth") authHeader: String?
-      ): Call<UserProfile?>?*/
-
-    @GET("/api/v1/receivers")
+    @GET("receivers")
     suspend fun getReceiver(
         @Header("auth") authHeader: String?
-    ): Response<List<ReceiverResponse>>
+    ): Response<ReceiverResponse>
+
+    @FormUrlEncoded
+    @POST(" receivers/add")
+    suspend fun addReceiver(
+        @Header("auth") authHeader: String?,
+        @Field("name") name: String,
+        @Field("number") number: String,
+        @Field("address") address: String
+    ): Response<UpdateReceiverResponse>
+
+    @POST("receivers/{id}/delete")
+    suspend fun deleteReceiver(
+        @Path("id") id: String,
+        @Header("auth") authHeader: String
+    ): Response<UpdateReceiverResponse>
 
 
     companion object {

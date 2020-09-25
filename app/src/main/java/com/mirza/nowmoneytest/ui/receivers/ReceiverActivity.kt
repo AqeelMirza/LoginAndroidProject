@@ -1,5 +1,6 @@
 package com.mirza.nowmoneytest.ui.receivers
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -11,6 +12,7 @@ import com.mirza.nowmoneytest.R
 import com.mirza.nowmoneytest.adapter.RecevierAdapter
 import com.mirza.nowmoneytest.databinding.ActivityReceiverBinding
 import com.mirza.nowmoneytest.network.responses.ReceiverResponse
+import com.mirza.nowmoneytest.ui.receivers.add.AddReceiverActivity
 import com.mirza.nowmoneytest.util.*
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
@@ -35,6 +37,11 @@ class ReceiverActivity : AppCompatActivity(), KodeinAware {
         val auth = intent.getStringExtra(getString(R.string.auth))
 
         getReceiver(auth)
+
+        binding.fab.setOnClickListener {
+            navigateToAddReceiverActivity(auth)
+        }
+
     }
 
     private fun getReceiver(auth: String?) {
@@ -62,7 +69,7 @@ class ReceiverActivity : AppCompatActivity(), KodeinAware {
         binding.receiverNoItemText.visibility == View.VISIBLE
     }
 
-    private fun initRecyclerView(receiverResponse: List<ReceiverResponse>) {
+    private fun initRecyclerView(receiverResponse: List<ReceiverResponse>?) {
         hideNoReceiverText()
         binding.receiverRecyclerView.visibility == View.VISIBLE
         binding.receiverRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -78,5 +85,12 @@ class ReceiverActivity : AppCompatActivity(), KodeinAware {
     private fun displayReceiverList(receiverResponse: List<ReceiverResponse>?) {
         adapter.setList(receiverResponse!!)
         adapter.notifyDataSetChanged()
+    }
+
+    private fun navigateToAddReceiverActivity(auth: String) {
+        val intent = Intent(this, AddReceiverActivity::class.java).apply {
+            putExtra(getString(R.string.auth), auth)
+        }
+        startActivity(intent)
     }
 }

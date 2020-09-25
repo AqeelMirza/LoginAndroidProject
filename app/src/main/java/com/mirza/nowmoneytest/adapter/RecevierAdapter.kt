@@ -32,7 +32,7 @@ class RecevierAdapter() : RecyclerView.Adapter<MyViewHolder>() {
 
     fun setList(receiver: List<ReceiverResponse>?) {
         receiverList.clear()
-        receiverList.addAll(receiver?.get(position)?.receiverResponse?.value!!)
+        receiverList.addAll(receiverList)
     }
 }
 

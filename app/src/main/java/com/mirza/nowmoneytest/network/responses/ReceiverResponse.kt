@@ -1,10 +1,9 @@
 package com.mirza.nowmoneytest.network.responses
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.mirza.nowmoneytest.db.entities.Receiver
 
 data class ReceiverResponse(
-    val isSuccessful: Boolean?,
-    val message: String?,
-    val receiverResponse: LiveData<List<Receiver>>?
+    val receiverResponse: MutableLiveData<Receiver>?
 )

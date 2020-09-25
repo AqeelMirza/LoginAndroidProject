@@ -76,14 +76,11 @@
 
                 <Button
                     android:id="@+id/button_sign_in"
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@color/colorAccent"
-                    android:text="Sign In"
-                    android:textAllCaps="false"
+                    android:layout_gravity="center"
+                    android:text="@string/sign_in"
                     android:textColor="#fff" />
-
             </LinearLayout>
 
         </RelativeLayout>
