@@ -17,4 +17,5 @@
     <string name="sign_in">Sign In</string>
     <string name="added">Added successfully</string>
     <string name="add_your_contacts_here">Add your contacts here</string>
+    <string name="deleted">deleted successfully</string>
 </resources>

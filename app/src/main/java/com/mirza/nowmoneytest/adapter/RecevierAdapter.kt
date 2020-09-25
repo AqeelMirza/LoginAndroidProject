@@ -33,6 +33,11 @@ class RecevierAdapter() : RecyclerView.Adapter<MyViewHolder>() {
         receiverList.clear()
         receiverResponse?.let { receiverList.addAll(it) }
     }
+
+    fun removeAt(position: Int) {
+        receiverList.removeAt(position)
+        notifyItemRemoved(position)
+    }
 }
 
 class MyViewHolder(val binding: ReceiverItemListBinding) : RecyclerView.ViewHolder(binding.root) {

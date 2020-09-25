@@ -35,8 +35,8 @@ interface MyApi {
 
     @POST("receivers/{id}/delete")
     suspend fun deleteReceiver(
-        @Path("id") id: String,
-        @Header("auth") authHeader: String
+        @Header("auth") authHeader: String?,
+        @Path("id") id: String
     ): Response<UpdateReceiverResponse>
 
 
