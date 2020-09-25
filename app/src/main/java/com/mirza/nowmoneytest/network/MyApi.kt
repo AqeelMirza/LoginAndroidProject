@@ -2,10 +2,8 @@ package com.mirza.nowmoneytest.network
 
 import com.mirza.nowmoneytest.db.entities.Receiver
 import com.mirza.nowmoneytest.network.responses.LoginResponse
-import com.mirza.nowmoneytest.network.responses.ReceiverResponse
 import com.mirza.nowmoneytest.network.responses.UpdateReceiverResponse
 import okhttp3.OkHttpClient
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -24,7 +22,7 @@ interface MyApi {
     @GET("receivers")
     suspend fun getReceiver(
         @Header("auth") authHeader: String?
-    ): Response<ReceiverResponse>
+    ): Response<List<Receiver>>
 
     @FormUrlEncoded
     @POST(" receivers/add")

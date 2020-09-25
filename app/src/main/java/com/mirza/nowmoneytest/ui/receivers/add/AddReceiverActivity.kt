@@ -48,9 +48,9 @@ class AddReceiverActivity : AppCompatActivity(), KodeinAware {
             progress_bar.show()
             lifecycleScope.launch {
                 try {
-                    val response = viewModel.addReceiver(auth!!, name, number, address)
+                    viewModel.addReceiver(auth!!, name, number, address)
                     progress_bar.hide()
-                    toast(getString(R.string.success))
+                    binding.rootLayout.snackbar(getString(R.string.added))
                     finish()
                 } catch (e: ApiException) {
                     progress_bar.hide()

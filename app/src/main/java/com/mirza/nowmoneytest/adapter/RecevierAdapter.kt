@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mirza.nowmoneytest.R
 import com.mirza.nowmoneytest.databinding.ReceiverItemListBinding
 import com.mirza.nowmoneytest.db.entities.Receiver
-import com.mirza.nowmoneytest.network.responses.ReceiverResponse
 
 class RecevierAdapter() : RecyclerView.Adapter<MyViewHolder>() {
 
@@ -22,7 +21,7 @@ class RecevierAdapter() : RecyclerView.Adapter<MyViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        this.position=position
+        this.position = position
         holder.bind(receiverList[position])
     }
 
@@ -30,18 +29,18 @@ class RecevierAdapter() : RecyclerView.Adapter<MyViewHolder>() {
         return receiverList.size
     }
 
-    fun setList(receiver: List<ReceiverResponse>?) {
+    fun setList(receiverResponse: List<Receiver>?) {
         receiverList.clear()
-        receiverList.addAll(receiverList)
+        receiverResponse?.let { receiverList.addAll(it) }
     }
 }
 
 class MyViewHolder(val binding: ReceiverItemListBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(receiver: Receiver) {
-        binding.nameTextView.text = receiver.name
-        binding.numberTextView.text = receiver.number
-        binding.addressTextView.text = receiver.address
+        binding.nameTextView.text = "Name: ${receiver.name}"
+        binding.numberTextView.text = "Number: ${receiver.number}"
+        binding.addressTextView.text = "Address: ${receiver.address}"
 
     }
 }

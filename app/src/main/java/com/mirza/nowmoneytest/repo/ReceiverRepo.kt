@@ -1,15 +1,15 @@
 package com.mirza.nowmoneytest.repo
 
+import com.mirza.nowmoneytest.db.entities.Receiver
 import com.mirza.nowmoneytest.network.MyApi
 import com.mirza.nowmoneytest.network.SafeApiRequest
-import com.mirza.nowmoneytest.network.responses.ReceiverResponse
 import com.mirza.nowmoneytest.network.responses.UpdateReceiverResponse
 
 class ReceiverRepo(
     private val api: MyApi
 ) : SafeApiRequest() {
 
-    suspend fun getReceiver(auth: String): List<ReceiverResponse> {
+    suspend fun getReceiver(auth: String): List<Receiver> {
         return apiRequest { api.getReceiver(auth) }
     }
 

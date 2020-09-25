@@ -15,4 +15,6 @@
     <string name="auth">auth</string>
     <string name="no_receivers_found_please_add_using_the_add_button">No Contacts found, please add using the \'Add\' button</string>
     <string name="sign_in">Sign In</string>
+    <string name="added">Added successfully</string>
+    <string name="add_your_contacts_here">Add your contacts here</string>
 </resources>

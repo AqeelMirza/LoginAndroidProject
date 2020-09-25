@@ -61,7 +61,7 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
                     }
                 } catch (e: ApiException) {
                     progress_bar.hide()
-                    binding.rootLayout.snackbar(e.message.toString()!!)
+                    binding.rootLayout.snackbar(e.message.toString())
                     toast(buildToastMessage(getString(R.string.failure)))
                     e.printStackTrace()
                 } catch (e: NoInternetException) {
