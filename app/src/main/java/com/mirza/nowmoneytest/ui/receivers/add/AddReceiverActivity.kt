@@ -54,10 +54,11 @@ class AddReceiverActivity : AppCompatActivity(), KodeinAware {
                     finish()
                 } catch (e: ApiException) {
                     progress_bar.hide()
-                    toast(getString(R.string.failure))
+                    toast(e.message.toString())
                     e.printStackTrace()
                 } catch (e: NoInternetException) {
                     progress_bar.hide()
+                    binding.rootLayout.snackbar(e.message.toString())
                     e.printStackTrace()
                 }
             }

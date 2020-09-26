@@ -16,7 +16,7 @@ import org.junit.runner.RunWith
 import java.net.HttpURLConnection
 
 @RunWith(AndroidJUnit4ClassRunner::class)
-class LoginActivityTest  {
+class LoginActivityTest {
 
     @get:Rule
     val rule = ActivityTestRule<LoginActivity>(LoginActivity::class.java)
@@ -36,7 +36,11 @@ class LoginActivityTest  {
         onView(withId(R.id.button_sign_in)).perform(click())
 
         // Is toast displayed and is the message correct?
-        onView(withText(buildToastMessage("success"))).inRoot(ToastChecker())
+        onView(
+            withText(buildToastMessage(rule.activity.getString(R.string.success)))
+        ).inRoot(
+            ToastChecker()
+        )
             .check(matches(isDisplayed()))
     }
 
@@ -47,7 +51,11 @@ class LoginActivityTest  {
         onView(withId(R.id.button_sign_in)).perform(click())
 
         // Is toast displayed and is the message correct?
-        onView(withText(buildToastMessage("failed"))).inRoot(ToastChecker())
+        onView(
+            withText(buildToastMessage(rule.activity.getString(R.string.failure)))
+        ).inRoot(
+            ToastChecker()
+        )
             .check(matches(isDisplayed()))
     }
 
@@ -58,7 +66,9 @@ class LoginActivityTest  {
         onView(withId(R.id.button_sign_in)).perform(click())
 
         // Is toast displayed and is the message correct?
-        onView(withText(buildToastMessage("please enter values"))).inRoot(ToastChecker())
+        onView(withText(buildToastMessage(rule.activity.getString(R.string.please_enter_values)))).inRoot(
+            ToastChecker()
+        )
             .check(matches(isDisplayed()))
     }
 

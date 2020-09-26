@@ -1,6 +1,7 @@
 package com.mirza.nowmoneytest
 
 import android.app.Application
+import com.mirza.nowmoneytest.db.AppDatabase
 import com.mirza.nowmoneytest.network.MyApi
 import com.mirza.nowmoneytest.network.NetworkConnectionInterceptor
 import com.mirza.nowmoneytest.repo.ReceiverRepo
@@ -22,10 +23,10 @@ class NowApplication : Application(), KodeinAware {
 
         bind() from singleton { NetworkConnectionInterceptor(instance()) }
         bind() from singleton { MyApi(instance()) }
-       // bind() from singleton { AppDatabase(instance()) }
+        bind() from singleton { AppDatabase(instance()) }
         bind() from singleton { UserRepo(instance()) }
         bind() from provider { LoginViewModelFactory(instance()) }
-        bind() from provider { ReceiverRepo(instance()) }
+        bind() from provider { ReceiverRepo(instance(),instance()) }
         bind() from provider { ReceiverViewModelFactory(instance()) }
 
 

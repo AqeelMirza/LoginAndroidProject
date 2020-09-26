@@ -66,6 +66,7 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
                     e.printStackTrace()
                 } catch (e: NoInternetException) {
                     progress_bar.hide()
+                    binding.rootLayout.snackbar(e.message.toString())
                     e.printStackTrace()
                 }
             }
@@ -77,5 +78,6 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
             putExtra(getString(R.string.auth), auth)
         }
         startActivity(intent)
+        finish()
     }
 }

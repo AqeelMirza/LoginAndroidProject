@@ -15,10 +15,8 @@ import com.mirza.nowmoneytest.adapter.RecevierAdapter
 import com.mirza.nowmoneytest.databinding.ActivityMainReceiverBinding
 import com.mirza.nowmoneytest.db.entities.Receiver
 import com.mirza.nowmoneytest.ui.receivers.add.AddReceiverActivity
-import com.mirza.nowmoneytest.util.ApiException
-import com.mirza.nowmoneytest.util.NoInternetException
-import com.mirza.nowmoneytest.util.SwipeToDeleteCallback
-import com.mirza.nowmoneytest.util.toast
+import com.mirza.nowmoneytest.util.*
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
@@ -69,7 +67,11 @@ class ReceiverActivity : AppCompatActivity(), KodeinAware {
                 val deleteResp = _id?.let { viewModel.deleteReceiver(auth, _id) }
                 if (deleteResp != null) {
                     toast(getString(R.string.deleted))
+                    viewModel.deleteReceiverFromDb(receiverList.get(pos))
                     adapter.removeAt(pos)
+                    if (receiverList.isEmpty()) {
+                        showNoReceiverText()
+                    }
                 }
             } catch (e: ApiException) {
                 toast(getString(R.string.failure))
@@ -94,14 +96,16 @@ class ReceiverActivity : AppCompatActivity(), KodeinAware {
                     if (receiverResp.isEmpty()) {
                         showNoReceiverText()
                     } else {
-                        receiverList = receiverResp
+                        viewModel.addAllReceiver(receiverResp)
                         displayReceiverList(receiverResp)
                     }
                 }
             } catch (e: ApiException) {
-                toast(getString(R.string.failure))
+                toast(e.message.toString())
                 e.printStackTrace()
             } catch (e: NoInternetException) {
+                displayReceiverList(viewModel.getAllReceivers())
+                binding.parentLayout.snackbar(e.message.toString())
                 e.printStackTrace()
             }
         }
@@ -123,8 +127,9 @@ class ReceiverActivity : AppCompatActivity(), KodeinAware {
         binding.includeActivityReceiver.receiverRecyclerView.adapter = adapter
     }
 
-    private fun displayReceiverList(receiverResponse: List<Receiver>?) {
+    private fun displayReceiverList(receiverResponse: List<Receiver>) {
         hideNoReceiverText()
+        receiverList = receiverResponse
         adapter.setList(receiverResponse)
         adapter.notifyDataSetChanged()
     }
