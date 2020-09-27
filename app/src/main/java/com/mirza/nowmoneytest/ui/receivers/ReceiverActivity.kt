@@ -85,7 +85,7 @@ class ReceiverActivity : AppCompatActivity(), KodeinAware {
                     //removing from the ROOM DB
                     viewModel.deleteReceiverFromDb(receiverList.get(pos))
                     adapter.removeAt(pos)
-                    if (receiverList.isEmpty()) {
+                    if ((receiverList.size == 1 && pos == 0) || receiverList.isEmpty()) {
                         showNoReceiverText()
                     }
                 }
