@@ -1,7 +1,8 @@
 # NowMoneyTest
 NOW Money Android App
 
-##Implementation
+## Implementation
+
 1. Application is developed using clean architecture with MVVM and Kotlin.
 2. Databinding is implemented to connect the logical code to user interface elements.
 3. Implemented Dependency Injection using kodein.
