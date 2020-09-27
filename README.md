@@ -7,8 +7,8 @@ NOW Money Android App
 2. Databinding is implemented to connect the logical code to user interface elements.
 3. Implemented Dependency Injection using kodein.
 4. ROOM Database is used to insert, delete and display data if no internet connection on device.
-5. Git version control to maintain repository and build history.
-6. Used Coroutines to pass code as asynchronous callback functions to add or get data.
+5. Used Coroutines to pass code as asynchronous callback functions to add, delete & get data.
+6. Git version control to maintain repository and build history.
 7. All contacts are displayed using RecyclerView.
 8. API Errors and No Internet Connection error is handled and message is shown.
 
