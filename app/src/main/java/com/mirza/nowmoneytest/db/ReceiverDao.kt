@@ -1,6 +1,5 @@
 package com.mirza.nowmoneytest.db
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.mirza.nowmoneytest.db.entities.Receiver
 

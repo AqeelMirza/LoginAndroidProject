@@ -29,11 +29,13 @@ class RecevierAdapter() : RecyclerView.Adapter<MyViewHolder>() {
         return receiverList.size
     }
 
+    //Setting the response list
     fun setList(receiverResponse: List<Receiver>?) {
         receiverList.clear()
         receiverResponse?.let { receiverList.addAll(it) }
     }
 
+    //to remove/delete
     fun removeAt(position: Int) {
         receiverList.removeAt(position)
         notifyItemRemoved(position)

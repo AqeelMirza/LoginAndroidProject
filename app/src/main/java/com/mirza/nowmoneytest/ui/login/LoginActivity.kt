@@ -18,10 +18,14 @@ import org.kodein.di.generic.instance
 
 class LoginActivity : AppCompatActivity(), KodeinAware {
 
+    //Dependency Injection
     override val kodein by kodein()
     private val factory: LoginViewModelFactory by instance()
 
+    //Databinding
     private lateinit var binding: ActivityLoginBinding
+
+    //Viewmodel
     private lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,21 +36,15 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
         viewModel = ViewModelProvider(this, factory).get(LoginViewModel::class.java)
 
         binding.buttonSignIn.setOnClickListener {
-            login()
+            loginApi()
         }
 
     }
 
-    companion object {
-        fun buildToastMessage(msg: String): String {
-            return msg
-        }
-    }
+    private fun loginApi() {
+        val (username, password) = getValues()
 
-    private fun login() {
-        val username = binding.editTextUsername.text.toString().trim()
-        val password = binding.editTextPassword.text.toString().trim()
-
+        //checking for empty validation
         if (username.isEmpty() || password.isEmpty()) {
             toast(buildToastMessage(getString(R.string.please_enter_values)))
         } else {
@@ -55,22 +53,37 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
                 try {
                     val loginResp = viewModel.userLogin(username, password)
                     if (loginResp.token != null) {
-                        progress_bar.hide()
+                        hideProgressBar()
                         toast(buildToastMessage(getString(R.string.success)))
                         navigateToReceiverActivity(loginResp.token)
                     }
-                } catch (e: ApiException) {
-                    progress_bar.hide()
-                    binding.rootLayout.snackbar(e.message.toString())
+                }//Handling error responses
+                catch (e: ApiException) {
+                    hideProgressBar()
+                    displayErrorMessage(e.message.toString())
                     toast(buildToastMessage(getString(R.string.failure)))
                     e.printStackTrace()
                 } catch (e: NoInternetException) {
-                    progress_bar.hide()
-                    binding.rootLayout.snackbar(e.message.toString())
+                    hideProgressBar()
+                    displayErrorMessage(e.message.toString())
                     e.printStackTrace()
                 }
             }
         }
+    }
+
+    private fun displayErrorMessage(message: String) {
+        binding.rootLayout.snackbar(message)
+    }
+
+    private fun hideProgressBar() {
+        progress_bar.hide()
+    }
+
+    private fun getValues(): Pair<String, String> {
+        val username = binding.editTextUsername.text.toString().trim()
+        val password = binding.editTextPassword.text.toString().trim()
+        return Pair(username, password)
     }
 
     fun navigateToReceiverActivity(auth: String) {
@@ -79,5 +92,12 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
         }
         startActivity(intent)
         finish()
+    }
+
+    //to build and test toast message
+    companion object {
+        fun buildToastMessage(msg: String): String {
+            return msg
+        }
     }
 }

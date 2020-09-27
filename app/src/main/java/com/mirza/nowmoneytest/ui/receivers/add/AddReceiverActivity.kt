@@ -18,10 +18,14 @@ import org.kodein.di.generic.instance
 
 class AddReceiverActivity : AppCompatActivity(), KodeinAware {
 
+    //Dependency Injection
     override val kodein by kodein()
     private val factory: ReceiverViewModelFactory by instance()
 
+    //Databinding
     private lateinit var binding: ActivityAddReceiverBinding
+
+    //Viewmodel
     private lateinit var viewModel: ReceiverViewModel
 
 
@@ -37,6 +41,7 @@ class AddReceiverActivity : AppCompatActivity(), KodeinAware {
         }
     }
 
+    //Adding contact
     private fun addReceiver(auth: String?) {
         val name = binding.addName.text.toString().trim()
         val number = binding.addNumber.text.toString().trim()
@@ -46,18 +51,22 @@ class AddReceiverActivity : AppCompatActivity(), KodeinAware {
             toast(getString(R.string.please_enter_values))
         } else {
             progress_bar.show()
+            //using Coroutine to handle asynchronously
             lifecycleScope.launch {
                 try {
-                    viewModel.addReceiver(auth!!, name, number, address)
+                    val resp = viewModel.addReceiver(auth!!, name, number, address)
                     progress_bar.hide()
-                    binding.rootLayout.snackbar(getString(R.string.added))
+                    toast(getString(R.string.added))
+                    //closing the Activity
                     finish()
                 } catch (e: ApiException) {
                     progress_bar.hide()
+                    //Server error response
                     toast(e.message.toString())
                     e.printStackTrace()
                 } catch (e: NoInternetException) {
                     progress_bar.hide()
+                    //No Internet error message
                     binding.rootLayout.snackbar(e.message.toString())
                     e.printStackTrace()
                 }

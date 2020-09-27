@@ -1,6 +1,5 @@
 package com.mirza.nowmoneytest.repo
 
-import androidx.lifecycle.LiveData
 import com.mirza.nowmoneytest.db.AppDatabase
 import com.mirza.nowmoneytest.db.entities.Receiver
 import com.mirza.nowmoneytest.network.MyApi

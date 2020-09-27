@@ -1,25 +1,22 @@
 package com.mirza.nowmoneytest
 
-import android.os.SystemClock
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import androidx.test.rule.ActivityTestRule
 import com.mirza.nowmoneytest.ui.login.LoginActivity
 import com.mirza.nowmoneytest.ui.login.LoginActivity.Companion.buildToastMessage
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.net.HttpURLConnection
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class LoginActivityTest {
 
     @get:Rule
-    val rule = ActivityTestRule<LoginActivity>(LoginActivity::class.java)
+    val rule = ActivityScenarioRule<LoginActivity>(LoginActivity::class.java)
 
     @Test
     fun check_visibility_login_screen() {
@@ -37,7 +34,7 @@ class LoginActivityTest {
 
         // Is toast displayed and is the message correct?
         onView(
-            withText(buildToastMessage(rule.activity.getString(R.string.success)))
+            withText(buildToastMessage("success"))
         ).inRoot(
             ToastChecker()
         )
@@ -52,7 +49,7 @@ class LoginActivityTest {
 
         // Is toast displayed and is the message correct?
         onView(
-            withText(buildToastMessage(rule.activity.getString(R.string.failure)))
+            withText(buildToastMessage("failed"))
         ).inRoot(
             ToastChecker()
         )
@@ -66,7 +63,7 @@ class LoginActivityTest {
         onView(withId(R.id.button_sign_in)).perform(click())
 
         // Is toast displayed and is the message correct?
-        onView(withText(buildToastMessage(rule.activity.getString(R.string.please_enter_values)))).inRoot(
+        onView(withText(buildToastMessage("please check and enter correct values"))).inRoot(
             ToastChecker()
         )
             .check(matches(isDisplayed()))

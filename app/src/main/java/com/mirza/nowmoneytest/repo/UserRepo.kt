@@ -3,7 +3,6 @@ package com.mirza.nowmoneytest.repo
 import com.mirza.nowmoneytest.network.MyApi
 import com.mirza.nowmoneytest.network.SafeApiRequest
 import com.mirza.nowmoneytest.network.responses.LoginResponse
-import retrofit2.Response
 
 class UserRepo(
     private val api: MyApi

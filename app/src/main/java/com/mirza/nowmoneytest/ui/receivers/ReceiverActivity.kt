@@ -24,13 +24,23 @@ import org.kodein.di.generic.instance
 
 class ReceiverActivity : AppCompatActivity(), KodeinAware {
 
+    //Dependency Injection
     override val kodein by kodein()
     private val factory: ReceiverViewModelFactory by instance()
 
+    //DataBinding
     private lateinit var binding: ActivityMainReceiverBinding
+
+    //Viewmodel
     private lateinit var viewModel: ReceiverViewModel
+
+    //RecyclerViewAdapter
     private lateinit var adapter: RecevierAdapter
-    private lateinit var auth: String
+
+    //Auth token
+    private var auth: String? = null
+
+    //ReceiverList
     private lateinit var receiverList: List<Receiver>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +49,7 @@ class ReceiverActivity : AppCompatActivity(), KodeinAware {
             DataBindingUtil.setContentView(this, R.layout.activity_main_receiver)
         viewModel = ViewModelProvider(this, factory).get(ReceiverViewModel::class.java)
 
+        //reading the token
         auth = intent.getStringExtra(getString(R.string.auth))
 
         getReceiver(auth)
@@ -46,7 +57,7 @@ class ReceiverActivity : AppCompatActivity(), KodeinAware {
         swipeToDelete()
 
         binding.includeActivityReceiver.fab.setOnClickListener {
-            navigateToAddReceiverActivity(auth)
+            navigateToAddReceiverActivity(this.auth)
         }
     }
 
@@ -56,6 +67,10 @@ class ReceiverActivity : AppCompatActivity(), KodeinAware {
                 deleteReceiver(viewHolder.adapterPosition)
             }
         }
+        attachSwipeHandler(swipeHandler)
+    }
+
+    private fun attachSwipeHandler(swipeHandler: SwipeToDeleteCallback) {
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(binding.includeActivityReceiver.receiverRecyclerView)
     }
@@ -64,9 +79,10 @@ class ReceiverActivity : AppCompatActivity(), KodeinAware {
         var _id = receiverList.get(pos)._id
         lifecycleScope.launch {
             try {
-                val deleteResp = _id?.let { viewModel.deleteReceiver(auth, _id) }
+                val deleteResp = _id?.let { viewModel.deleteReceiver(auth!!, _id) }
                 if (deleteResp != null) {
                     toast(getString(R.string.deleted))
+                    //removing from the ROOM DB
                     viewModel.deleteReceiverFromDb(receiverList.get(pos))
                     adapter.removeAt(pos)
                     if (receiverList.isEmpty()) {
@@ -104,6 +120,7 @@ class ReceiverActivity : AppCompatActivity(), KodeinAware {
                 toast(e.message.toString())
                 e.printStackTrace()
             } catch (e: NoInternetException) {
+                //Displaying from ROOM DB, if the no respone due to internet connection
                 displayReceiverList(viewModel.getAllReceivers())
                 binding.parentLayout.snackbar(e.message.toString())
                 e.printStackTrace()
@@ -134,7 +151,7 @@ class ReceiverActivity : AppCompatActivity(), KodeinAware {
         adapter.notifyDataSetChanged()
     }
 
-    private fun navigateToAddReceiverActivity(auth: String) {
+    private fun navigateToAddReceiverActivity(auth: String?) {
         val intent = Intent(this, AddReceiverActivity::class.java).apply {
             putExtra(getString(R.string.auth), auth)
         }
