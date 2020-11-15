@@ -1,5 +1,4 @@
-# NowMoneyTest
-NOW Money Android App
+
 
 ## Implementation
 
